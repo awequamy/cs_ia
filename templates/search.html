@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <h2 id="sec_2" style="margin-top: 100px; margin-left: 140px; color: #094b65; ">Search results:</h2>
+        <div class="cards">
+            {% for product in products %}
+            <div class="card">
+                <img src="{{ product.image.url }}" alt="photo">
+                <h3>{{ product }}</h3>
+                <p>{{ product.price }}</p>
+                <a href="{% url 'detail' product.id %}">
+                    <button>details</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+{% endblock %}

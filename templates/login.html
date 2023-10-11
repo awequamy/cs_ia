@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="margin-left: 400px; margin-bottom: 50px;">
+    <h2 style="margin-top: 125px; margin-bottom: 35px; color: #094b65;">log in/register</h2>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="
+    background: #fff;
+    width: 100px;
+    color: #094b65;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;
+    margin-bottom: 30px; ">log in</button>
+</form>
+    <p style="margin-bottom: 15px; color: #094b65; font-size: 1.5em;">No account yet? Register!</p>
+
+    <a href="{% url 'register' %}"><button style="
+    background: #fff;
+    width: 170px;
+    color: #094b65;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;">register</button></a>
+</div>
+{% endblock %}

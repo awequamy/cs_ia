@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiking Shop</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+</head>
+<body>
+    <header id="header">
+
+        <div id="nav-content">
+            <a href="{% url 'home' %}" class="logo">HikingShop</a>
+    
+            <form method="get" action="#">
+                <input type="text" name="query" id="query" placeholder="Search...">
+            </form>
+    
+            <ul>
+                {% if request.user.is_superuser %}
+                <li><a href="http://localhost:8000/admin/">admin</a></li>
+                {% endif %}
+
+                <li><a href="{% url 'category' rent.slug %}">rent</a></li>
+                <li><a href="{% url 'catalog' %}">{{ shop }}</a></li>
+                <li><a href="http://localhost:8000/cart/">cart</a></li>
+
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">log in</a></li>
+                {% else %}
+                    <li><a href="{% url 'logout' %}">{{ request.user.username }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div id="nav-menu">
+            <form method="get" action="{% url 'home' %}">
+                <input type="text" name="query" placeholder="Search...">
+            </form>
+            <ul>
+                {% if request.user.is_superuser %}
+                <li><a href="http://localhost:8000/admin/">admin</a></li>
+                {% endif %}
+
+                <li><a href="{% url 'category' rent.slug %}">rent</a></li>
+                <li><a href="{% url 'catalog' %}">{{ shop }}</a></li>
+                <li><a href="http://localhost:8000/cart/">cart</a></li>
+
+                {% if not request.user.is_authenticated %}
+                    <li><a href="{% url 'login' %}">log in</a></li>
+                {% else %}
+                    <li><a href="{% url 'logout' %}">{{ request.user.username }}<i class="fa fa-sign-out" style="font-size:36px"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <img id="burger-menu" src="{% static 'images/burger-menu.svg' %}" alt="burger-menu">
+
+    </header>
+
+    <section>
+
+        <h2 id="text"><span>Are you ready for</span><br>Travel?</h2>
+
+        <img src="{% static 'images/bird1.png' %}" id="bird1" alt="">
+        <img src="{% static 'images/bird2.png' %}" id="bird2" alt="">
+        <img src="{% static 'images/forest.png' %}" id="forest" alt="">
+        <a href="#sec" id="btn">Get Ready!</a>
+        <img src="{% static 'images/rocks.png' %}" id="rocks" alt="">
+        <img src="{% static 'images/water.png' %}" id="water" alt="">
+
+    </section>
+
+    <div class="sec" id="sec">
+        
+        <h2 id="sec_2">Newest Products</h2>
+
+        <div class="cards">
+            {% for product in page_obj %}
+            <div class="card">
+                <img src="{{ product.image.url }}" alt="photo">
+                <h3>{{ product }}</h3>
+                <p>{{ product.price }}</p>
+                <a href="{% url 'detail' product.id %}">
+                    <button>details</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'category' shop.slug  %}" style="text-decoration: none;"><button id="btn2">all products</button></a>
+
+    </div>
+
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="contacts">
+                <h4>Contact Details</h4>
+                <p>+996 771 943994</p>
+
+            </div>
+            <div class="schedule">
+                <h4>Working Time</h4>
+                <p>Monday - Friday:
+                    9:00 - 21:00
+                </p>
+                <p>
+                    Saturday - Sunday:
+                    10:00 - 18:00
+                </p>
+
+            </div>
+            <div class="socials">
+                <h4>Social Media</h4>
+                <p>Instagram: awequamy</p>
+                <p>Facebook: awequamy</p>
+                <p>Telegram: awequamy</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let text = document.getElementById('text');
+        let bird1 = document.getElementById('bird1');
+        let bird2 = document.getElementById('bird2');
+        let btn = document.getElementById('btn');
+        let rocks = document.getElementById('rocks');
+        let forest = document.getElementById('forest');
+        let water = document.getElementById('water');
+        let header = document.getElementById('header');
+
+        window.addEventListener('scroll', function(){
+            let value = window.scrollY;
+
+            text.style.top = 50 + value * -0.5 + '%';
+            bird1.style.top = value * -1.5 + 'px';
+            bird1.style.left = value * 2 + 'px';
+            bird2.style.top = value * -1.5 + 'px';
+            bird2.style.left = value * -5 + 'px';
+            btn.style.marginTop = value * 1.5 + 'px';
+            rocks.style.top = value * -0.12 + 'px';
+            forest.style.top = value * 0.25 + 'px';
+            // header.style.top = value * 0.5 + 'px';
+        })
+
+        let menuClicked = false;
+        const burger_menu = document.getElementById("burger-menu");
+        const nav_menu = document.getElementById("nav-menu");
+
+        burger_menu.addEventListener("click", () => {
+        if (menuClicked) {
+          nav_menu.style.marginRight = "-170px";
+          nav_menu.style.display = "none";
+        } else {
+          nav_menu.style.marginRight = 0;
+          nav_menu.style.display = "block";
+        }
+        menuClicked = !menuClicked;
+      });
+    </script>
+
+</body>
+</html> 

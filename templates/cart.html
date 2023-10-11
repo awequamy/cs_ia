@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="cart_section" style="margin-bottom: 25px;">
+
+        <div class="cart">
+
+            <div class="conditions">
+                <p>product</p>
+                <p>quantity</p>
+                <p>price</p>
+            </div>
+            {% for item in cart %}
+            {% with product=item.product %}
+            <div class="cart_product">
+
+                <p>{{ product.title }}</p>
+                <form action="{% url 'cart:cart_add' product.id %}" style="position: absolute; margin-left: 330px;" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <input type="submit" value="Обновить" style="width: 110px; background: #fff; color: #094b65; border-radius: 40px;">
+                {% csrf_token %}
+                </form>
+                <p>{{ item.price }}</p>
+                <a href="{% url 'cart:cart_remove' product.id %}" style="position: absolute; margin-left: 600px; text-decoration: none; color: #DC143C;">Удалить</a></td>
+
+            </div>
+            {% endwith %}
+            {% endfor %}
+
+
+            <h2>Final price: {{ cart.get_total_price }}</h2>
+            <a href="http://localhost:8000/cart/order/"><button>Complete Your Order</button></a>
+
+        </div>
+
+    </div>
+
+{% endblock %}

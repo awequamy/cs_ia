@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div style="margin-left: 400px; margin-bottom: 50px;">
+    <h2 style="margin-top: 125px; margin-bottom: 20px; color: #094b65;">making an order</h2>
+    <form method="post" style="width: 600px" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <h4>your products:</h4>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <p style="color: #094b65; font-size: 1.2em;">{{ product.title }} --> {{item.quantity}}</p>
+            {% endwith %}
+            {% endfor %}
+    <button type="submit" style="
+    background: #fff;
+    width: 230px;
+    color: #094b65;
+    font-size: 1.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 40px;">place an order</button>
+</form>
+</div>
+{% endblock  %}

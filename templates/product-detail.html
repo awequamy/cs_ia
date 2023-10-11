@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   <div class="product">
+
+        <div class="productDetail">
+
+            <div class="product-content">
+
+                <img src="{{ product.image.url }}" alt="">
+
+                <div class="description" >
+                    {{ product.description|safe }}
+                </div>
+
+            </div>
+
+            <div class="package_info" style="width: 450px;">
+
+                <h4 style="color: #094b65">{{ product.title }}</h4>
+                <p>price: {{ product.price }} </p>
+                <p>status: {{ product.get_stock_display }}</p>
+                <form action="http://localhost:8000/cart/add/{{ product.id }}/" method="post">
+                    {{ cart_product_form }}
+                    {% csrf_token %}
+                    <input type="submit" style="width: 170px; background: #fff; color: #094b65; border-radius: 40px;" value="add to cart">
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
